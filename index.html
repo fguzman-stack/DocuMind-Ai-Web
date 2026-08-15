@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F2F5F4" id="metaThemeColor">
+<title>DocuMind AI — Chatea con tus documentos, 100% offline</title>
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<meta name="description" content="DocuMind AI: chatea con tus PDF, Word, Excel y archivos de texto usando un modelo de lenguaje local. 100% privado por defecto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#inicio" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17H6V2Z"/><path d="M15 2v3h3"/><path d="M8.5 12h7M8.5 15.5h7"/></svg>
+      </span>
+      DocuMind AI
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features" data-i18n="nav.features">Funciones</a></li>
+      <li><a href="#how" data-i18n="nav.how">Cómo funciona</a></li>
+      <li><a href="#engines" data-i18n="nav.engines">Motores</a></li>
+      <li><a href="#privacy" data-i18n="nav.privacy">Privacidad</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" id="settingsToggle" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.04 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.04H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.04-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1.04H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z"/></svg>
+        <span class="lbl" data-i18n="settings.button">Preferencias</span>
+      </button>
+      <div class="popover" id="settingsPopover">
+        <div class="pop-group">
+          <div class="pop-title" data-i18n="lang.label">Idioma</div>
+          <div class="lang-grid" id="langGrid">
+            <button class="opt-btn" data-lang="es">Español</button>
+            <button class="opt-btn" data-lang="en">English</button>
+            <button class="opt-btn" data-lang="pt">Português</button>
+            <button class="opt-btn" data-lang="fr">Français</button>
+            <button class="opt-btn" data-lang="de">Deutsch</button>
+          </div>
+        </div>
+        <div class="pop-group">
+          <div class="pop-title" data-i18n="theme.label">Tema</div>
+          <div class="theme-row" id="themeRow">
+            <button class="opt-btn" data-theme-mode="light" data-i18n="theme.light">Claro</button>
+            <button class="opt-btn" data-theme-mode="dark" data-i18n="theme.dark">Oscuro</button>
+            <button class="opt-btn" data-theme-mode="system" data-i18n="theme.system">Sistema</button>
+          </div>
+        </div>
+        <div class="pop-group">
+          <div class="pop-title" data-i18n="accent.label">Color de acento</div>
+          <div class="swatch-row" id="swatchRow">
+            <button class="swatch" data-accent="blue" style="background:#3D63DD" aria-label="blue"></button>
+            <button class="swatch" data-accent="violet" style="background:#6D4CE0" aria-label="violet"></button>
+            <button class="swatch" data-accent="teal" style="background:#0E8E80" aria-label="teal"></button>
+            <button class="swatch" data-accent="amber" style="background:#B45F06" aria-label="amber"></button>
+            <button class="swatch" data-accent="rose" style="background:#B32A62" aria-label="rose"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section id="inicio" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow" data-i18n="hero.eyebrow">// 100% LOCAL POR DEFECTO</div>
+        <h1 data-i18n="hero.title">Conversa con tus documentos. Nada sale de tu equipo.</h1>
+        <p class="hero-sub" data-i18n="hero.subtitle">DocuMind AI es una app de escritorio que responde preguntas sobre tus PDF, Word, Excel y archivos de texto usando un modelo de lenguaje local. El parseo, la búsqueda y la generación corren en tu máquina; solo si tú lo activas, un modelo en la nube redacta la respuesta final.</p>
+        <div class="hero-cta">
+          <a href="#how" class="btn btn-primary" data-i18n="hero.cta1">Ver cómo funciona</a>
+          <a href="#engines" class="btn btn-ghost" data-i18n="hero.cta2">Comparar los motores</a>
+        </div>
+        <div class="hero-annot">
+          <span data-i18n="hero.annotation1">PDF · DOCX · XLSX · TXT</span>
+          <span data-i18n="hero.annotation2">5 idiomas de interfaz</span>
+          <span data-i18n="hero.annotation3">0 documentos enviados, siempre</span>
+        </div>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-diagram">
+          <div class="flow-node">
+            <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2Z"/><path d="M15 2v3h3"/><path d="M8.5 12h7M8.5 15.5h7M8.5 8.5h4"/></svg>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-node">
+            <svg viewBox="0 0 24 24"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/></svg>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-node">
+            <svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="1.5"/><circle cx="18" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="6" cy="18" r="1.5"/><circle cx="18" cy="17" r="1.5"/><path d="M5 6 12 12 18 5M12 12 6 18M12 12l6 5" opacity=".45"/></svg>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-node">
+            <svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 2v3M12 2v3M15 2v3M9 19v3M12 19v3M15 19v3M2 9h3M2 12h3M2 15h3M19 9h3M19 12h3M19 15h3"/></svg>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-node answer">
+            <svg viewBox="0 0 24 24"><path d="M3 5h18v11H8l-5 4V5Z"/><rect x="10" y="8" width="6" height="4.4" rx="1"/><path d="M11.3 8V6.9a1.7 1.7 0 0 1 3.4 0V8"/></svg>
+          </div>
+        </div>
+        <div class="flow-labels">
+          <span data-i18n="diagram.doc">Documento</span>
+          <span data-i18n="diagram.chunks">Fragmentos</span>
+          <span data-i18n="diagram.vectors">Vectores</span>
+          <span data-i18n="diagram.engine">Motor local</span>
+          <span data-i18n="diagram.answer">Respuesta</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCREENSHOTS ================= -->
+  <section id="gallery" class="section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="shots.eyebrow">CAPTURAS</div>
+        <h2 data-i18n="shots.title">Así se ve DocuMind AI</h2>
+        <p data-i18n="shots.subtitle">El flujo completo dentro de la app, capturado en pantalla.</p>
+      </div>
+      <div class="shots-grid">
+        <figure class="shot featured reveal" data-src="images/image1.png">
+          <img src="images/image1.png" alt="Captura 1 de DocuMind AI" loading="lazy">
+        </figure>
+        <figure class="shot reveal" data-src="images/image2.png">
+          <img src="images/image2.png" alt="Captura 2 de DocuMind AI" loading="lazy">
+        </figure>
+        <figure class="shot reveal" data-src="images/image3.png">
+          <img src="images/image3.png" alt="Captura 3 de DocuMind AI" loading="lazy">
+        </figure>
+        <figure class="shot reveal" data-src="images/image4.png">
+          <img src="images/image4.png" alt="Captura 4 de DocuMind AI" loading="lazy">
+        </figure>
+        <figure class="shot reveal" data-src="images/image5.png">
+          <img src="images/image5.png" alt="Captura 5 de DocuMind AI" loading="lazy">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES ================= -->
+  <section id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="features.eyebrow">FUNCIONES</div>
+        <h2 data-i18n="features.title">Todo lo que necesitas, nada que temer</h2>
+        <p data-i18n="features.subtitle">Una base de conocimiento personal que responde con fuentes, sin depender de la nube.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/><circle cx="12" cy="10" r="2"/></svg></div>
+          <h3 data-i18n="features.1.title">100% local por defecto</h3>
+          <p data-i18n="features.1.desc">El parseo, los embeddings, la búsqueda y la generación corren en tu máquina desde la primera pregunta.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-7.97A5 5 0 0 1 16.9 8.02 4.5 4.5 0 0 1 16.5 17H7Z" stroke-dasharray="3 2.2"/></svg></div>
+          <h3 data-i18n="features.2.title">Motor en la nube, opcional</h3>
+          <p data-i18n="features.2.desc">Activa Gemini, DeepSeek u OpenAI solo para redactar la respuesta final. La búsqueda sigue siendo local.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3-5 3V4Z"/></svg></div>
+          <h3 data-i18n="features.3.title">Fuentes verificables</h3>
+          <p data-i18n="features.3.desc">Cada respuesta muestra los fragmentos exactos usados, con su puntaje de similitud, como en un artículo académico.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/></svg></div>
+          <h3 data-i18n="features.4.title">Workspaces aislados</h3>
+          <p data-i18n="features.4.desc">Organiza documentos y chats en proyectos independientes; los datos nunca se mezclan entre ellos.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="4" y="12" width="3.4" height="8"/><rect x="10.3" y="7" width="3.4" height="13"/><rect x="16.6" y="3" width="3.4" height="17"/></svg></div>
+          <h3 data-i18n="features.5.title">Progreso en tiempo real</h3>
+          <p data-i18n="features.5.desc">Una barra de avance muestra cada paso mientras se analizan, fragmentan e indexan tus archivos.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.5 3.4 6 3.4 9s-1 6.5-3.4 9c-2.4-2.5-3.4-6-3.4-9S9.6 5.5 12 3Z"/></svg></div>
+          <h3 data-i18n="features.6.title">Interfaz en 5 idiomas</h3>
+          <p data-i18n="features.6.desc">Inglés, español, portugués, francés y alemán, con detección automática del idioma del sistema.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section id="how" class="section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="how.eyebrow">PROCESO</div>
+        <h2 data-i18n="how.title">De un archivo a una respuesta con fuentes</h2>
+        <p data-i18n="how.subtitle">Cinco pasos, todos dentro de tu equipo, con progreso visible en cada uno.</p>
+      </div>
+      <div class="steps-rail">
+        <div class="step reveal">
+          <div class="step-num"></div>
+          <h3 data-i18n="how.1.title">Analizar</h3>
+          <p data-i18n="how.1.desc">Extrae el texto de PDF, DOCX, XLSX o TXT. Los PDF usan un motor de respaldo si el primero falla.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num"></div>
+          <h3 data-i18n="how.2.title">Fragmentar</h3>
+          <p data-i18n="how.2.desc">Divide el texto en piezas de 1000 caracteres con 50 de solape, para no cortar ideas a la mitad.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num"></div>
+          <h3 data-i18n="how.3.title">Vectorizar</h3>
+          <p data-i18n="how.3.desc">Convierte cada fragmento en un vector de 768 dimensiones con nomic-embed-text, en grupos concurrentes.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num"></div>
+          <h3 data-i18n="how.4.title">Indexar</h3>
+          <p data-i18n="how.4.desc">Guarda los vectores en SQLite, en lotes de 100 filas, listos para búsqueda por similitud.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num"></div>
+          <h3 data-i18n="how.5.title">Responder</h3>
+          <p data-i18n="how.5.desc">Al preguntar, se buscan los 5 fragmentos más cercanos y se generan la respuesta y sus fuentes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ENGINES ================= -->
+  <section id="engines">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="engines.eyebrow">MOTORES DE RESPUESTA</div>
+        <h2 data-i18n="engines.title">Elige dónde se redacta la respuesta</h2>
+        <p data-i18n="engines.subtitle">La recuperación de información es siempre local. Solo el último paso, la redacción, puede delegarse a la nube.</p>
+      </div>
+
+      <div class="engine-cols reveal">
+        <div class="engine-card local">
+          <span class="engine-tag" data-i18n="nav.start">Por defecto</span>
+          <h3 data-i18n="engines.local.title">IA local · Ollama</h3>
+          <p data-i18n="engines.local.desc">Corre en tu máquina con llama3.2:1b por defecto. Sin cuenta, sin costo, sin conexión.</p>
+        </div>
+        <div class="engine-card cloud">
+          <span class="engine-tag" data-i18n="hero.cta2">Opcional</span>
+          <h3 data-i18n="engines.cloud.title">IA en la nube · opcional</h3>
+          <p data-i18n="engines.cloud.desc">Gemini, DeepSeek u OpenAI redactan la respuesta final con la clave que tú configuras.</p>
+        </div>
+      </div>
+
+      <table class="spec-table reveal">
+        <thead>
+          <tr>
+            <th></th>
+            <th data-i18n="engines.local.title">IA local · Ollama</th>
+            <th data-i18n="engines.cloud.title">IA en la nube · opcional</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="engines.row.where">Dónde corre</td>
+            <td data-i18n="engines.local.where">Tu máquina (localhost)</td>
+            <td data-i18n="engines.cloud.where">Servidores del proveedor</td>
+          </tr>
+          <tr>
+            <td data-i18n="engines.row.internet">Necesita internet</td>
+            <td data-i18n="engines.local.internet">No</td>
+            <td data-i18n="engines.cloud.internet">Sí</td>
+          </tr>
+          <tr>
+            <td data-i18n="engines.row.cost">Costo</td>
+            <td data-i18n="engines.local.cost">Gratis</td>
+            <td data-i18n="engines.cloud.cost">Según el proveedor</td>
+          </tr>
+          <tr>
+            <td data-i18n="engines.row.sends">Qué se envía</td>
+            <td data-i18n="engines.local.sends">Nada</td>
+            <td data-i18n="engines.cloud.sends">Solo la pregunta y los fragmentos recuperados</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="engines-note reveal">
+        <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <p data-i18n="engines.note">Tus archivos, el texto extraído y los vectores nunca salen de tu equipo, elijas el motor que elijas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRIVACY ================= -->
+  <section id="privacy" class="section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="privacy.eyebrow">PRIVACIDAD</div>
+        <h2 data-i18n="privacy.title">Un mapa exacto de qué se guarda y qué se envía</h2>
+        <p data-i18n="privacy.subtitle">La misma tabla que verías en la configuración de la app.</p>
+      </div>
+      <table class="privacy-table reveal">
+        <thead>
+          <tr>
+            <th data-i18n="privacy.col.data">Dato</th>
+            <th data-i18n="privacy.col.stored">Dónde se guarda</th>
+            <th data-i18n="privacy.col.leaves">¿Sale de tu equipo?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="privacy.row1.label">Tus archivos</td>
+            <td data-i18n="privacy.row1.stored">Tu disco</td>
+            <td><span class="tag tag-safe" data-i18n="privacy.row1.leaves">Nunca</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="privacy.row2.label">Texto extraído</td>
+            <td>SQLite · document_texts</td>
+            <td><span class="tag tag-safe" data-i18n="privacy.row2.leaves">Nunca</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="privacy.row3.label">Embeddings</td>
+            <td>SQLite · chunks.vector</td>
+            <td><span class="tag tag-safe" data-i18n="privacy.row3.leaves">Nunca</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="privacy.row4.label">Historial de chat</td>
+            <td>SQLite · messages</td>
+            <td><span class="tag tag-safe" data-i18n="privacy.row4.leaves">Nunca</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="privacy.row5.label">Claves de API</td>
+            <td>SQLite · settings</td>
+            <td><span class="tag tag-warn" data-i18n="privacy.row5.leaves">Solo al llamar al proveedor elegido</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="privacy.row6.label">Pregunta + contexto recuperado</td>
+            <td data-i18n="privacy.row6.stored">Memoria, durante la consulta</td>
+            <td><span class="tag tag-warn" data-i18n="privacy.row6.leaves">Solo si activas la nube</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= STACK ================= -->
+  <section id="stack">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:24px;">
+        <div class="eyebrow" data-i18n="stack.eyebrow">TECNOLOGÍA</div>
+        <h2 data-i18n="stack.title">Construido con herramientas de escritorio modernas</h2>
+      </div>
+      <div class="chip-row reveal">
+        <span class="chip">Tauri 2</span>
+        <span class="chip">React 19</span>
+        <span class="chip">TypeScript 5.8</span>
+        <span class="chip">Vite 7</span>
+        <span class="chip">Tailwind CSS</span>
+        <span class="chip">Zustand</span>
+        <span class="chip">SQLite</span>
+        <span class="chip">Ollama</span>
+        <span class="chip">pdfjs-dist</span>
+        <span class="chip">mammoth</span>
+        <span class="chip">SheetJS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUICK START ================= -->
+  <section id="start" class="section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="start.eyebrow">INSTALACIÓN</div>
+        <h2 data-i18n="start.title">En marcha en tres pasos</h2>
+        <p data-i18n="start.subtitle">Necesitas Node.js 22+, Rust estable y Ollama instalado y en ejecución.</p>
+      </div>
+      <div class="start-grid reveal">
+        <div class="start-list">
+          <div class="start-item">
+            <h3 data-i18n="start.step1">1. Instala los modelos</h3>
+            <p data-i18n="start.note">Modelo de chat: llama3.2:1b (~1.3 GB) · Modelo de embeddings: nomic-embed-text (274 MB, 768 dimensiones)</p>
+          </div>
+          <div class="start-item">
+            <h3 data-i18n="start.step2">2. Instala las dependencias</h3>
+          </div>
+          <div class="start-item">
+            <h3 data-i18n="start.step3">3. Ejecuta la app</h3>
+          </div>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+          <pre><span class="c"># chat / generación (~1.3 GB)</span>
+<span class="p">$</span> ollama pull llama3.2:1b
+<span class="c"># embeddings (274 MB, 768 dim)</span>
+<span class="p">$</span> ollama pull nomic-embed-text
+
+<span class="p">$</span> npm install
+
+<span class="p">$</span> npm run tauri dev</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <span class="brand-mark brand-mark-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17H6V2Z"/><path d="M15 2v3h3"/></svg>
+        </span>
+        DocuMind AI
+      </div>
+      <p class="footer-tagline" data-i18n="footer.tagline">Chatea con tus documentos. Sin conexión, si así lo prefieres.</p>
+      <a href="#inicio" class="back-top" data-i18n="footer.backToTop">Volver arriba</a>
+    </div>
+    <p class="footer-meta" data-i18n="footer.author">Construido con Tauri 2, React 19, TypeScript, Tailwind CSS y Ollama. Autor: Francisco Guzmán.</p>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
