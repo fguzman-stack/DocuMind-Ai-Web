@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#F2F5F4" id="metaThemeColor">
-<title>Canjea tu código · DocuMind AI</title>
+<title data-i18n="meta.title">Canjea tu código · DocuMind AI</title>
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,6 +85,15 @@
   .icon-btn svg{width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
   .icon-btn .lbl{display:inline;}
   @media (max-width:480px){ .icon-btn .lbl{display:none;} }
+  .topbar-right{display:flex; align-items:center; gap:10px;}
+  .lang-select select{
+    font-family:var(--font-mono); font-size:.78rem; font-weight:500; color:var(--text-primary);
+    background:var(--surface); border:1.5px solid var(--border); border-radius:999px;
+    padding:8px 12px; cursor:pointer;
+    transition:border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+  .lang-select select:hover{border-color:var(--accent-text); color:var(--accent-text); transform:translateY(-1px);}
+  .lang-select select:focus-visible{outline:2px solid var(--accent-text); outline-offset:2px;}
 
   /* ---------- Card ---------- */
   .card{
@@ -199,23 +208,34 @@
       </span>
       DocuMind AI
     </span>
-    <button class="icon-btn" id="themeToggle" aria-label="Cambiar tema">
-      <svg id="themeIcon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-      <span class="lbl">Tema</span>
-    </button>
+    <div class="topbar-right">
+      <div class="lang-select">
+        <select id="langSelect" aria-label="Idioma">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+          <option value="pt">Português</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </div>
+      <button class="icon-btn" id="themeToggle" aria-label="Cambiar tema">
+        <svg id="themeIcon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <span class="lbl" data-i18n="nav.theme">Tema</span>
+      </button>
+    </div>
   </header>
 
   <main class="card">
 
     <!-- ============ FORM ============ -->
     <section id="viewForm" class="view">
-      <div class="eyebrow">Canje de código</div>
-      <h1>Canjea tu código de DocuMind AI</h1>
-      <p>Pega aquí el código que recibiste por email de AppSumo. Se valida al instante y, si es correcto, tienes tu copia de por vida lista para descargar.</p>
+      <div class="eyebrow" data-i18n="redeem.eyebrow">Canje de código</div>
+      <h1 data-i18n="redeem.title">Canjea tu código de DocuMind AI</h1>
+      <p data-i18n="redeem.intro">Pega aquí el código que recibiste por email de AppSumo. Se valida al instante y, si es correcto, tienes tu copia de por vida lista para descargar.</p>
 
       <form class="code-form" id="redeemForm" novalidate>
         <div class="field">
-          <label for="codeInput">Tu código de AppSumo</label>
+          <label for="codeInput" data-i18n="redeem.label">Tu código de AppSumo</label>
           <input
             class="code-input"
             id="codeInput"
@@ -229,7 +249,7 @@
             aria-describedby="errorMsg"
             aria-invalid="false">
         </div>
-        <button class="btn btn-primary" id="redeemBtn" type="submit">Canjear código</button>
+        <button class="btn btn-primary" id="redeemBtn" type="submit" data-i18n="redeem.btn">Canjear código</button>
         <p class="error" id="errorMsg" hidden>
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
           <span></span>
@@ -242,38 +262,38 @@
       <div class="success-badge">
         <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
       </div>
-      <div class="eyebrow">Código canjeado</div>
-      <h1>¡Bienvenido a DocuMind AI!</h1>
-      <p class="success-note">Tu código fue canjeado y ya tienes tu licencia de por vida. Descarga la app, instala y empieza a conversar con tus documentos: todo corre en tu máquina, sin cuenta y sin enviar tus archivos a ningún lugar.</p>
+      <div class="eyebrow" data-i18n="success.eyebrow">Código canjeado</div>
+      <h1 data-i18n="success.title">¡Bienvenido a DocuMind AI!</h1>
+      <p class="success-note" data-i18n="success.note">Tu código fue canjeado y ya tienes tu licencia de por vida. Descarga la app, instala y empieza a conversar con tus documentos: todo corre en tu máquina, sin cuenta y sin enviar tus archivos a ningún lugar.</p>
 
       <div class="download-wrap">
         <a class="btn btn-primary btn-lg" id="downloadBtn" href="https://github.com/fguzman-stack/Documind-DD/releases/download/v1.0.0/DocuMind.AI_0.1.0_x64-setup.exe" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>
-          Descargar DocuMind AI para Windows
+          <span data-i18n="success.download">Descargar DocuMind AI para Windows</span>
         </a>
-        <p class="download-hint">Instalador · Windows 10 / 11 · ~50 MB</p>
+        <p class="download-hint" data-i18n="success.hint">Instalador · Windows 10 / 11 · ~50 MB</p>
       </div>
 
       <ol class="stepper">
         <li>
           <span class="step-num">1</span>
           <div>
-            <h3>Descarga e instala</h3>
-            <p>Ejecuta el instalador de DocuMind AI para Windows. Solo toma un par de minutos.</p>
+            <h3 data-i18n="step1.title">Descarga e instala</h3>
+            <p data-i18n="step1.desc">Ejecuta el instalador de DocuMind AI para Windows. Solo toma un par de minutos.</p>
           </div>
         </li>
         <li>
           <span class="step-num">2</span>
           <div>
-            <h3>Ollama y los modelos, listos</h3>
-            <p>En el primer inicio la app puede instalar Ollama y los modelos de IA automáticamente por ti. Sin terminal, sin configuración manual.</p>
+            <h3 data-i18n="step2.title">Ollama y los modelos, listos</h3>
+            <p data-i18n="step2.desc">En el primer inicio la app puede instalar Ollama y los modelos de IA automáticamente por ti. Sin terminal, sin configuración manual.</p>
           </div>
         </li>
         <li>
           <span class="step-num">3</span>
           <div>
-            <h3>Sube y chatea</h3>
-            <p>Sube tus PDF, Word, Excel o TXT y empieza a preguntar. Sin cuenta y sin conexión requerida después de la instalación.</p>
+            <h3 data-i18n="step3.title">Sube y chatea</h3>
+            <p data-i18n="step3.desc">Sube tus PDF, Word, Excel o TXT y empieza a preguntar. Sin cuenta y sin conexión requerida después de la instalación.</p>
           </div>
         </li>
       </ol>
@@ -281,7 +301,7 @@
 
   </main>
 
-  <p class="support">¿Problemas para canjear? Escríbenos a <a href="mailto:hola@documind.ai"><!-- TODO: reemplaza con tu email real de soporte -->hola@documind.ai</a></p>
+  <p class="support"><span data-i18n="redeem.support">¿Problemas para canjear? Escríbenos a</span> <a href="mailto:hola@documind.ai"><!-- TODO: reemplaza con tu email real de soporte -->hola@documind.ai</a></p>
 
 </div>
 
@@ -292,6 +312,136 @@
   var REGEX = /^DMND-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
   var LS_CODE = "documind_redeemed";
   var LS_THEME = "documind_theme";
+  var LS_LANG = "documind_lang";
+
+  var I18N = {
+    es: {
+      "meta.title":"Canjea tu código · DocuMind AI",
+      "nav.theme":"Tema",
+      "redeem.eyebrow":"Canje de código",
+      "redeem.title":"Canjea tu código de DocuMind AI",
+      "redeem.intro":"Pega aquí el código que recibiste por email de AppSumo. Se valida al instante y, si es correcto, tienes tu copia de por vida lista para descargar.",
+      "redeem.label":"Tu código de AppSumo",
+      "redeem.btn":"Canjear código",
+      "redeem.busy":"Verificando código…",
+      "redeem.errFormat":"Vaya, este código no parece completo. Los códigos de DocuMind AI tienen este formato: DMND-XXXX-XXXX-XXXX (letras y números en mayúsculas, separados por guiones). Cópialo tal cual de tu email de AppSumo y vuelve a intentarlo.",
+      "redeem.errNotFound":"Este código no lo reconocemos. Revisa que lo copiaste completo desde tu email de AppSumo, o escríbenos si el problema persiste.",
+      "redeem.errLoad":"Ups, algo salió mal al verificar tu código. Revisa tu conexión y vuelve a intentarlo en un momento.",
+      "redeem.support":"¿Problemas para canjear? Escríbenos a",
+      "success.eyebrow":"Código canjeado",
+      "success.title":"¡Bienvenido a DocuMind AI!",
+      "success.note":"Tu código fue canjeado y ya tienes tu licencia de por vida. Descarga la app, instala y empieza a conversar con tus documentos: todo corre en tu máquina, sin cuenta y sin enviar tus archivos a ningún lugar.",
+      "success.download":"Descargar DocuMind AI para Windows",
+      "success.hint":"Instalador · Windows 10 / 11 · ~50 MB",
+      "step1.title":"Descarga e instala",
+      "step1.desc":"Ejecuta el instalador de DocuMind AI para Windows. Solo toma un par de minutos.",
+      "step2.title":"Ollama y los modelos, listos",
+      "step2.desc":"En el primer inicio la app puede instalar Ollama y los modelos de IA automáticamente por ti. Sin terminal, sin configuración manual.",
+      "step3.title":"Sube y chatea",
+      "step3.desc":"Sube tus PDF, Word, Excel o TXT y empieza a preguntar. Sin cuenta y sin conexión requerida después de la instalación."
+    },
+    en: {
+      "meta.title":"Redeem your code · DocuMind AI",
+      "nav.theme":"Theme",
+      "redeem.eyebrow":"Redeem code",
+      "redeem.title":"Redeem your DocuMind AI code",
+      "redeem.intro":"Paste the code you received in your AppSumo email here. It's validated instantly and, if correct, your lifetime copy is ready to download.",
+      "redeem.label":"Your AppSumo code",
+      "redeem.btn":"Redeem code",
+      "redeem.busy":"Verifying code…",
+      "redeem.errFormat":"Hmm, this code doesn't look complete. DocuMind AI codes use this format: DMND-XXXX-XXXX-XXXX (uppercase letters and numbers, separated by hyphens). Copy it exactly from your AppSumo email and try again.",
+      "redeem.errNotFound":"We don't recognize this code. Double-check that you copied it in full from your AppSumo email, or write to us if the problem persists.",
+      "redeem.errLoad":"Oops, something went wrong while verifying your code. Check your connection and try again in a moment.",
+      "redeem.support":"Trouble redeeming? Write to us at",
+      "success.eyebrow":"Code redeemed",
+      "success.title":"Welcome to DocuMind AI!",
+      "success.note":"Your code has been redeemed and your lifetime license is ready. Download the app, install it and start chatting with your documents: everything runs on your machine, no account and your files never leave your device.",
+      "success.download":"Download DocuMind AI for Windows",
+      "success.hint":"Installer · Windows 10 / 11 · ~50 MB",
+      "step1.title":"Download and install",
+      "step1.desc":"Run the DocuMind AI installer for Windows. It only takes a couple of minutes.",
+      "step2.title":"Ollama and models, ready",
+      "step2.desc":"On first launch the app can install Ollama and the AI models automatically for you. No terminal, no manual setup.",
+      "step3.title":"Upload and chat",
+      "step3.desc":"Upload your PDF, Word, Excel or TXT files and start asking. No account and no connection required after installation."
+    },
+    pt: {
+      "meta.title":"Resgate seu código · DocuMind AI",
+      "nav.theme":"Tema",
+      "redeem.eyebrow":"Resgate de código",
+      "redeem.title":"Resgate seu código do DocuMind AI",
+      "redeem.intro":"Cole aqui o código que você recebeu por e-mail da AppSumo. Ele é validado na hora e, se estiver correto, sua cópia vitalícia está pronta para baixar.",
+      "redeem.label":"Seu código da AppSumo",
+      "redeem.btn":"Resgatar código",
+      "redeem.busy":"Verificando código…",
+      "redeem.errFormat":"Ops, este código não parece completo. Os códigos do DocuMind AI têm este formato: DMND-XXXX-XXXX-XXXX (letras e números em maiúsculas, separados por hífens). Copie exatamente do seu e-mail da AppSumo e tente novamente.",
+      "redeem.errNotFound":"Não reconhecemos este código. Confira se você o copiou completo do seu e-mail da AppSumo ou escreva para nós se o problema continuar.",
+      "redeem.errLoad":"Ops, algo deu errado ao verificar seu código. Verifique sua conexão e tente novamente em instantes.",
+      "redeem.support":"Problemas para resgatar? Escreva para nós em",
+      "success.eyebrow":"Código resgatado",
+      "success.title":"Bem-vindo ao DocuMind AI!",
+      "success.note":"Seu código foi resgatado e sua licença vitalícia já está ativa. Baixe o app, instale e comece a conversar com seus documentos: tudo roda na sua máquina, sem conta e sem enviar seus arquivos para nenhum lugar.",
+      "success.download":"Baixar o DocuMind AI para Windows",
+      "success.hint":"Instalador · Windows 10 / 11 · ~50 MB",
+      "step1.title":"Baixe e instale",
+      "step1.desc":"Execute o instalador do DocuMind AI para Windows. Leva apenas alguns minutos.",
+      "step2.title":"Ollama e os modelos, prontos",
+      "step2.desc":"Na primeira inicialização o app pode instalar o Ollama e os modelos de IA automaticamente para você. Sem terminal, sem configuração manual.",
+      "step3.title":"Envie e converse",
+      "step3.desc":"Envie seus PDFs, Word, Excel ou TXT e comece a perguntar. Sem conta e sem conexão necessária após a instalação."
+    },
+    fr: {
+      "meta.title":"Échangez votre code · DocuMind AI",
+      "nav.theme":"Thème",
+      "redeem.eyebrow":"Échange de code",
+      "redeem.title":"Échangez votre code DocuMind AI",
+      "redeem.intro":"Collez ici le code reçu par e-mail d'AppSumo. Il est validé instantanément et, s'il est correct, votre licence à vie est prête à télécharger.",
+      "redeem.label":"Votre code AppSumo",
+      "redeem.btn":"Échanger le code",
+      "redeem.busy":"Vérification du code…",
+      "redeem.errFormat":"Oups, ce code ne semble pas complet. Les codes DocuMind AI suivent ce format : DMND-XXXX-XXXX-XXXX (lettres et chiffres en majuscules, séparés par des tirets). Copiez-le tel quel depuis votre e-mail AppSumo et réessayez.",
+      "redeem.errNotFound":"Nous ne reconnaissons pas ce code. Vérifiez que vous l'avez bien copié en entier depuis votre e-mail AppSumo, ou écrivez-nous si le problème persiste.",
+      "redeem.errLoad":"Oups, une erreur s'est produite lors de la vérification de votre code. Vérifiez votre connexion et réessayez dans un instant.",
+      "redeem.support":"Un souci d'échange ? Écrivez-nous à",
+      "success.eyebrow":"Code échangé",
+      "success.title":"Bienvenue sur DocuMind AI !",
+      "success.note":"Votre code a été échangé et votre licence à vie est prête. Téléchargez l'application, installez-la et commencez à discuter avec vos documents : tout s'exécute sur votre machine, sans compte et sans envoyer vos fichiers nulle part.",
+      "success.download":"Télécharger DocuMind AI pour Windows",
+      "success.hint":"Installateur · Windows 10 / 11 · ~50 Mo",
+      "step1.title":"Téléchargez et installez",
+      "step1.desc":"Lancez l'installateur DocuMind AI pour Windows. Cela ne prend que quelques minutes.",
+      "step2.title":"Ollama et les modèles, prêts",
+      "step2.desc":"Au premier lancement, l'application peut installer Ollama et les modèles d'IA automatiquement pour vous. Pas de terminal, pas de configuration manuelle.",
+      "step3.title":"Importez et discutez",
+      "step3.desc":"Importez vos PDF, Word, Excel ou TXT et posez vos questions. Sans compte et sans connexion après l'installation."
+    },
+    de: {
+      "meta.title":"Code einlösen · DocuMind AI",
+      "nav.theme":"Design",
+      "redeem.eyebrow":"Code einlösen",
+      "redeem.title":"Lösen Sie Ihren DocuMind AI-Code ein",
+      "redeem.intro":"Fügen Sie hier den Code aus Ihrer AppSumo-E-Mail ein. Er wird sofort geprüft und, wenn er korrekt ist, steht Ihre Lizenz für immer zum Download bereit.",
+      "redeem.label":"Ihr AppSumo-Code",
+      "redeem.btn":"Code einlösen",
+      "redeem.busy":"Code wird geprüft…",
+      "redeem.errFormat":"Hmm, dieser Code sieht nicht vollständig aus. DocuMind-AI-Codes haben dieses Format: DMND-XXXX-XXXX-XXXX (Großbuchstaben und Zahlen, durch Bindestriche getrennt). Kopieren Sie ihn exakt aus Ihrer AppSumo-E-Mail und versuchen Sie es erneut.",
+      "redeem.errNotFound":"Wir erkennen diesen Code nicht. Prüfen Sie, ob Sie ihn vollständig aus Ihrer AppSumo-E-Mail kopiert haben, oder schreiben Sie uns, wenn das Problem weiterhin besteht.",
+      "redeem.errLoad":"Ups, beim Prüfen Ihres Codes ist etwas schiefgelaufen. Überprüfen Sie Ihre Verbindung und versuchen Sie es gleich noch einmal.",
+      "redeem.support":"Probleme beim Einlösen? Schreiben Sie uns an",
+      "success.eyebrow":"Code eingelöst",
+      "success.title":"Willkommen bei DocuMind AI!",
+      "success.note":"Ihr Code wurde eingelöst und Ihre lebenslange Lizenz ist bereit. Laden Sie die App herunter, installieren Sie sie und chatten Sie mit Ihren Dokumenten: alles läuft auf Ihrem Gerät, ohne Konto und ohne dass Ihre Dateien irgendwohin gesendet werden.",
+      "success.download":"DocuMind AI für Windows herunterladen",
+      "success.hint":"Installationsprogramm · Windows 10 / 11 · ~50 MB",
+      "step1.title":"Herunterladen und installieren",
+      "step1.desc":"Führen Sie das DocuMind AI-Installationsprogramm für Windows aus. Es dauert nur ein paar Minuten.",
+      "step2.title":"Ollama und Modelle, bereit",
+      "step2.desc":"Beim ersten Start kann die App Ollama und die KI-Modelle automatisch für Sie installieren. Kein Terminal, keine manuelle Einrichtung.",
+      "step3.title":"Hochladen und chatten",
+      "step3.desc":"Laden Sie Ihre PDF-, Word-, Excel- oder TXT-Dateien hoch und stellen Sie Fragen. Kein Konto und nach der Installation keine Verbindung nötig."
+    }
+  };
+  var SUPPORTED = ["es","en","pt","fr","de"];
 
   var root = document.documentElement;
   var input = document.getElementById("codeInput");
@@ -301,13 +451,46 @@
   var errorSpan = errorMsg.querySelector("span");
   var viewForm = document.getElementById("viewForm");
   var viewSuccess = document.getElementById("viewSuccess");
+  var langSelect = document.getElementById("langSelect");
+  var state = { lang: "es" };
 
   /* Lista de hashes de códigos válidos. Se mantiene SOLO en memoria:
      no se imprime en consola ni se vuelca al DOM. La carga es defensiva:
      si falla, la página sigue funcionando y muestra un error amigable. */
   var validHashes = null;
 
-  /* ---- theme (claro/oscuro), con persistencia ligera ---- */
+  function t(key){
+    var dict = I18N[state.lang] || I18N.es;
+    return dict[key] !== undefined ? dict[key] : I18N.es[key];
+  }
+
+  /* ---- idioma: detección automática + selector, con persistencia ligera ---- */
+  function detectLang(){
+    var stored = localStorage.getItem(LS_LANG);
+    if(stored && SUPPORTED.indexOf(stored) !== -1) return stored;
+    var nav = ((navigator.language || "es").slice(0,2)).toLowerCase();
+    return SUPPORTED.indexOf(nav) !== -1 ? nav : "es";
+  }
+  function applyLang(lang){
+    if(SUPPORTED.indexOf(lang) === -1) lang = "es";
+    state.lang = lang;
+    root.setAttribute("lang", lang);
+    localStorage.setItem(LS_LANG, lang);
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for(var i = 0; i < nodes.length; i++){
+      var key = nodes[i].getAttribute("data-i18n");
+      if(t(key) !== undefined) nodes[i].textContent = t(key);
+    }
+    if(langSelect) langSelect.value = lang;
+    if(!redeemBtn.disabled) redeemBtn.textContent = t("redeem.btn");
+  }
+  state.lang = detectLang();
+  applyLang(state.lang);
+  if(langSelect) langSelect.addEventListener("change", function(){
+    applyLang(langSelect.value);
+  });
+
+  /* ---- tema (claro/oscuro), con persistencia ligera ---- */
   function applyTheme(theme){
     root.setAttribute("data-theme", theme);
     var meta = document.getElementById("metaThemeColor");
@@ -391,10 +574,9 @@
   }
 
   /* ---- estado del botón mientras se verifica ---- */
-  var btnLabel = redeemBtn.textContent;
   function setBusy(on){
     redeemBtn.disabled = on;
-    redeemBtn.textContent = on ? "Verificando código…" : btnLabel;
+    redeemBtn.textContent = on ? t("redeem.busy") : t("redeem.btn");
   }
 
   /* ---- envío ---- */
@@ -402,7 +584,7 @@
     e.preventDefault();
     var value = input.value.trim();
     if(!REGEX.test(value)){
-      showError("Vaya, este código no parece completo. Los códigos de DocuMind AI tienen este formato: DMND-XXXX-XXXX-XXXX (letras y números en mayúsculas, separados por guiones). Cópialo tal cual de tu email de AppSumo y vuelve a intentarlo.");
+      showError(t("redeem.errFormat"));
       return;
     }
     setBusy(true);
@@ -417,12 +599,12 @@
           localStorage.setItem(LS_CODE, value);
           showSuccess();
         } else {
-          showError("Este código no lo reconocemos. Revisa que lo copiaste completo desde tu email de AppSumo, o escríbenos si el problema persiste.");
+          showError(t("redeem.errNotFound"));
         }
       })
       .catch(function(){
         setBusy(false);
-        showError("Ups, algo salió mal al verificar tu código. Revisa tu conexión y vuelve a intentarlo en un momento.");
+        showError(t("redeem.errLoad"));
       });
   });
 
