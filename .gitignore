@@ -1,0 +1,6 @@
+# Private files
+appsumo_codes.csv
+seed-appsumo-codes.sql
+.env
+.env.*
+!.env.example

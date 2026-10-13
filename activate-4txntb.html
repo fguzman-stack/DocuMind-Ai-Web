@@ -249,6 +249,19 @@
             aria-describedby="errorMsg"
             aria-invalid="false">
         </div>
+        <div class="field">
+          <label for="emailInput" data-i18n="redeem.emailLabel">Tu email</label>
+          <input
+            class="code-input"
+            id="emailInput"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            spellcheck="false"
+            placeholder="tu@email.com"
+            aria-describedby="errorMsg"
+            aria-invalid="false">
+        </div>
         <button class="btn btn-primary" id="redeemBtn" type="submit" data-i18n="redeem.btn">Canjear código</button>
         <p class="error" id="errorMsg" hidden>
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
@@ -301,7 +314,7 @@
 
   </main>
 
-  <p class="support"><span data-i18n="redeem.support">¿Problemas para canjear? Escríbenos a</span> <a href="mailto:hola@documind.ai"><!-- TODO: reemplaza con tu email real de soporte -->hola@documind.ai</a></p>
+  <p class="support"><span data-i18n="redeem.support">¿Problemas para canjear? Escríbenos a</span> <a href="mailto:familiazv2016@gmail.com">familiazv2016@gmail.com</a></p>
 
 </div>
 
@@ -310,6 +323,8 @@
   "use strict";
 
   var REGEX = /^DMND-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+  var EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var REDEEM_ENDPOINT = "https://YOUR_PROJECT_REF.functions.supabase.co/redeem-appsumo-code";
   var LS_CODE = "documind_redeemed";
   var LS_THEME = "documind_theme";
   var LS_LANG = "documind_lang";
@@ -322,6 +337,10 @@
       "redeem.title":"Canjea tu código de DocuMind AI",
       "redeem.intro":"Pega aquí el código que recibiste por email de AppSumo. Se valida al instante y, si es correcto, tienes tu copia de por vida lista para descargar.",
       "redeem.label":"Tu código de AppSumo",
+      "redeem.emailLabel":"Tu email",
+      "redeem.errEmail":"Ingresa un email válido para asociar tu licencia.",
+      "redeem.errUsed":"Este código ya fue canjeado con otro email. Si crees que es un error, escríbenos.",
+      "redeem.errConfig":"La validación online aún no está configurada. Escríbenos para activar tu licencia.",
       "redeem.btn":"Canjear código",
       "redeem.busy":"Verificando código…",
       "redeem.errFormat":"Vaya, este código no parece completo. Los códigos de DocuMind AI tienen este formato: DMND-XXXX-XXXX-XXXX (letras y números en mayúsculas, separados por guiones). Cópialo tal cual de tu email de AppSumo y vuelve a intentarlo.",
@@ -347,6 +366,10 @@
       "redeem.title":"Redeem your DocuMind AI code",
       "redeem.intro":"Paste the code you received in your AppSumo email here. It's validated instantly and, if correct, your lifetime copy is ready to download.",
       "redeem.label":"Your AppSumo code",
+      "redeem.emailLabel":"Your email",
+      "redeem.errEmail":"Enter a valid email to attach your license.",
+      "redeem.errUsed":"This code has already been redeemed with another email. Contact support if this looks wrong.",
+      "redeem.errConfig":"Online validation is not configured yet. Contact support to activate your license.",
       "redeem.btn":"Redeem code",
       "redeem.busy":"Verifying code…",
       "redeem.errFormat":"Hmm, this code doesn't look complete. DocuMind AI codes use this format: DMND-XXXX-XXXX-XXXX (uppercase letters and numbers, separated by hyphens). Copy it exactly from your AppSumo email and try again.",
@@ -445,6 +468,7 @@
 
   var root = document.documentElement;
   var input = document.getElementById("codeInput");
+  var emailInput = document.getElementById("emailInput");
   var form = document.getElementById("redeemForm");
   var redeemBtn = document.getElementById("redeemBtn");
   var errorMsg = document.getElementById("errorMsg");
@@ -524,12 +548,14 @@
     input.value = formatCode(input.value);
     hideError();
   });
+  emailInput.addEventListener("input", hideError);
 
   /* ---- mensajes de estado ---- */
   function showError(message){
     errorSpan.textContent = message;
     errorMsg.hidden = false;
     input.setAttribute("aria-invalid", "true");
+    emailInput.setAttribute("aria-invalid", "true");
     input.classList.remove("shake");
     void input.offsetWidth; /* reinicia la animación */
     input.classList.add("shake");
@@ -537,6 +563,7 @@
   function hideError(){
     errorMsg.hidden = true;
     input.setAttribute("aria-invalid", "false");
+    emailInput.setAttribute("aria-invalid", "false");
   }
 
   /* ---- éxito ---- */
@@ -544,32 +571,28 @@
     viewForm.hidden = true;
     viewSuccess.hidden = false;
     input.value = "";
+    emailInput.value = "";
     hideError();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  /* ---- carga de la lista de hashes ---- */
-  function loadHashes(){
-    return fetch("valid_code_hashes.json")
-      .then(function(res){
-        if(!res.ok) throw new Error("http " + res.status);
-        return res.json();
-      })
-      .then(function(data){
-        validHashes = Array.isArray(data.hashes) ? data.hashes : [];
+  function redeemOnline(code, email){
+    if(REDEEM_ENDPOINT.indexOf("YOUR_PROJECT_REF") !== -1){
+      return Promise.reject(new Error("not_configured"));
+    }
+    return fetch(REDEEM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: code, email: email })
+    }).then(function(res){
+      return res.json().catch(function(){ return {}; }).then(function(data){
+        if(!res.ok || !data.ok){
+          var err = new Error(data.error || "redeem_failed");
+          err.code = data.error || "redeem_failed";
+          throw err;
+        }
+        return data;
       });
-  }
-
-  /* ---- SHA-256 con la Web Crypto API nativa (sin librerías) ---- */
-  function sha256Hex(text){
-    var bytes = new TextEncoder().encode(text);
-    return crypto.subtle.digest("SHA-256", bytes).then(function(buffer){
-      var hex = "";
-      var view = new Uint8Array(buffer);
-      for(var i = 0; i < view.length; i++){
-        hex += view[i].toString(16).padStart(2, "0");
-      }
-      return hex;
     });
   }
 
@@ -583,42 +606,36 @@
   form.addEventListener("submit", function(e){
     e.preventDefault();
     var value = input.value.trim();
+    var email = emailInput.value.trim().toLowerCase();
     if(!REGEX.test(value)){
       showError(t("redeem.errFormat"));
       return;
     }
+    if(!EMAIL_REGEX.test(email)){
+      showError(t("redeem.errEmail"));
+      return;
+    }
     setBusy(true);
-    (validHashes ? Promise.resolve() : loadHashes())
-      .then(function(){
-        if(!validHashes) throw new Error("sin lista de hashes");
-        return sha256Hex(value);
-      })
-      .then(function(hash){
+    redeemOnline(value, email)
+      .then(function(data){
         setBusy(false);
-        if(validHashes.indexOf(hash) !== -1){
-          localStorage.setItem(LS_CODE, value);
-          showSuccess();
-        } else {
-          showError(t("redeem.errNotFound"));
-        }
+        localStorage.setItem(LS_CODE, JSON.stringify({ email: email, tier: data.tier || 1 }));
+        showSuccess();
       })
-      .catch(function(){
+      .catch(function(err){
         setBusy(false);
+        if(err && err.message === "not_configured") return showError(t("redeem.errConfig"));
+        if(err && err.code === "already_redeemed") return showError(t("redeem.errUsed"));
+        if(err && (err.code === "invalid_code" || err.code === "invalid_code_format")) return showError(t("redeem.errNotFound"));
+        if(err && err.code === "invalid_email") return showError(t("redeem.errEmail"));
         showError(t("redeem.errLoad"));
       });
   });
-
-  /* ---- carga inicial: pre-carga la lista; si falla, se reintenta al enviar ---- */
-  loadHashes().catch(function(){ /* silencioso: el submit reintentará */ });
-
-  /* ---- si ya canjeaste antes en este navegador, salta al éxito ---- */
-  if(localStorage.getItem(LS_CODE)){
-    showSuccess();
-  }
-
   input.focus();
 })();
 </script>
 
 </body>
 </html>
+
+

@@ -1,0 +1,4 @@
+project_id = "documind-ai"
+
+[functions.redeem-appsumo-code]
+verify_jwt = false
