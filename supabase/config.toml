@@ -3,3 +3,11 @@ project_id = "lqoyxisudmmhikrgdofg"
 [functions.redeem-appsumo-code]
 verify_jwt = false
 
+[functions.activate-documind-license]
+# Purchase-code authentication is verified by the function, not a buyer JWT.
+verify_jwt = false
+
+[functions.refresh-documind-license]
+# Authenticated by the existing Ed25519 license, not a browser flag.
+verify_jwt = false
+

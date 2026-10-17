@@ -74,7 +74,7 @@
     <div class="container hero-grid">
       <div>
         <div class="eyebrow" data-i18n="hero.eyebrow">// 100% LOCAL POR DEFECTO</div>
-        <h1 data-i18n="hero.title">Conversa con tus documentos. Nada sale de tu equipo.</h1>
+        <h1 data-i18n="hero.title">Conversa con tus documentos. IA local por defecto.</h1>
         <p class="hero-sub" data-i18n="hero.subtitle">DocuMind AI es una app de escritorio que responde preguntas sobre tus PDF, Word, Excel y archivos de texto usando un modelo de lenguaje local. El parseo, la búsqueda y la generación corren en tu máquina; solo si tú lo activas, un modelo en la nube redacta la respuesta final.</p>
         <div class="hero-cta">
           <a href="#how" class="btn btn-primary" data-i18n="hero.cta1">Ver cómo funciona</a>
@@ -83,7 +83,7 @@
         <div class="hero-annot">
           <span data-i18n="hero.annotation1">PDF · DOCX · XLSX · TXT</span>
           <span data-i18n="hero.annotation2">5 idiomas de interfaz</span>
-          <span data-i18n="hero.annotation3">0 documentos enviados, siempre</span>
+          <span data-i18n="hero.annotation3">Nube opcional: comparte pregunta y fragmentos</span>
         </div>
       </div>
 
@@ -197,7 +197,7 @@
       <div class="section-head reveal">
         <div class="eyebrow" data-i18n="how.eyebrow">PROCESO</div>
         <h2 data-i18n="how.title">De un archivo a una respuesta con fuentes</h2>
-        <p data-i18n="how.subtitle">Cinco pasos, todos dentro de tu equipo, con progreso visible en cada uno.</p>
+        <p data-i18n="how.subtitle">Cinco pasos locales por defecto. Si activas la nube, el proveedor recibe la pregunta y los fragmentos recuperados.</p>
       </div>
       <div class="steps-rail">
         <div class="step reveal">
@@ -285,7 +285,7 @@
 
       <div class="engines-note reveal">
         <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-        <p data-i18n="engines.note">Tus archivos, el texto extraído y los vectores nunca salen de tu equipo, elijas el motor que elijas.</p>
+        <p data-i18n="engines.note">Con Ollama local, el procesamiento de documentos se realiza en tu equipo. Si activas la nube, la pregunta y fragmentos de texto se envían al proveedor elegido; requiere internet y puede tener costos externos.</p>
       </div>
     </div>
   </section>
@@ -315,7 +315,7 @@
           <tr>
             <td data-i18n="privacy.row2.label">Texto extraído</td>
             <td>SQLite · document_texts</td>
-            <td><span class="tag tag-safe" data-i18n="privacy.row2.leaves">Nunca</span></td>
+            <td><span class="tag tag-warn" data-i18n="privacy.row2.leaves">Los fragmentos recuperados se envían si activas la nube</span></td>
           </tr>
           <tr>
             <td data-i18n="privacy.row3.label">Embeddings</td>
@@ -371,31 +371,27 @@
       <div class="section-head reveal">
         <div class="eyebrow" data-i18n="start.eyebrow">INSTALACIÓN</div>
         <h2 data-i18n="start.title">En marcha en tres pasos</h2>
-        <p data-i18n="start.subtitle">Necesitas Node.js 22+, Rust estable y Ollama instalado y en ejecución.</p>
+        <p data-i18n="start.subtitle">Para compradores: Windows 10/11 de 64 bits. No necesitas instalar Node.js ni Rust. La descarga inicial de Ollama y modelos requiere internet y espacio adicional.</p>
+        <p data-i18n="start.runtimeRequirements">Ollama requiere Windows 10 22H2 o posterior y al menos 4 GB para instalarse, más espacio para modelos. El rendimiento depende de la memoria y del hardware; no es un servicio de IA alojado por AppSumo.</p>
       </div>
       <div class="start-grid reveal">
         <div class="start-list">
           <div class="start-item">
-            <h3 data-i18n="start.step1">1. Instala los modelos</h3>
-            <p data-i18n="start.note">Modelo de chat: llama3.2:1b (~1.3 GB) · Modelo de embeddings: nomic-embed-text (274 MB, 768 dimensiones)</p>
+            <h3 data-i18n="start.step1">1. Descarga e instala</h3>
+            <p data-i18n="start.installDesc">Si compraste en AppSumo, canjea tu código con tu correo de compra y descarga el instalador de Windows. Conserva tu comprobante.</p>
           </div>
           <div class="start-item">
-            <h3 data-i18n="start.step2">2. Instala las dependencias</h3>
+            <h3 data-i18n="start.step2">2. Prepara la IA local</h3>
+            <p data-i18n="start.modelsDesc">Abre la aplicación y sigue el asistente de Ollama. Espera a que terminen las descargas de los modelos antes de consultar sin conexión.</p>
           </div>
           <div class="start-item">
-            <h3 data-i18n="start.step3">3. Ejecuta la app</h3>
+            <h3 data-i18n="start.step3">3. Importa y pregunta</h3>
+            <p data-i18n="start.chatDesc">Crea un espacio, importa un documento y haz una pregunta. La nube es opcional y envía pregunta y fragmentos al proveedor que elijas.</p>
           </div>
         </div>
-        <div class="terminal">
-          <div class="terminal-bar"><span></span><span></span><span></span></div>
-          <pre><span class="c"># chat / generación (~1.3 GB)</span>
-<span class="p">$</span> ollama pull llama3.2:1b
-<span class="c"># embeddings (274 MB, 768 dim)</span>
-<span class="p">$</span> ollama pull nomic-embed-text
-
-<span class="p">$</span> npm install
-
-<span class="p">$</span> npm run tauri dev</pre>
+        <div class="start-list">
+          <a class="btn btn-primary" href="activate-4txntb.html" data-i18n="start.download">Canjear código de AppSumo</a>
+          <p data-i18n="start.note">Modelo de chat: llama3.2:1b (~1.3 GB) · Modelo de embeddings: nomic-embed-text (274 MB, 768 dimensiones)</p>
         </div>
       </div>
     </div>
@@ -413,6 +409,7 @@
         DocuMind AI
       </div>
       <p class="footer-tagline" data-i18n="footer.tagline">Chatea con tus documentos. Sin conexión, si así lo prefieres.</p>
+      <p class="footer-tagline">Built with Llama · <a href="https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE" target="_blank" rel="noopener noreferrer">Llama 3.2 Community License</a></p>
       <a href="#inicio" class="back-top" data-i18n="footer.backToTop">Volver arriba</a>
     </div>
     <p class="footer-meta" data-i18n="footer.author">Construido con Tauri 2, React 19, TypeScript, Tailwind CSS y Ollama. Autor: Francisco Guzmán.</p>

@@ -2,7 +2,7 @@
 
 # DocuMind AI Web
 
-**Chatea con tus documentos. Nada sale de tu equipo.**
+**Chatea con tus documentos. IA local por defecto, nube opcional con envío de pregunta y fragmentos.**
 
 Landing page del software de escritorio **DocuMind AI**: una base de conocimiento personal que responde preguntas sobre tus PDF, Word, Excel y archivos de texto usando un modelo de lenguaje local.
 
@@ -63,7 +63,7 @@ Formatos soportados: **PDF**, **DOCX**, **XLSX** y **TXT**.
 
 ## Cómo funciona
 
-De un archivo a una respuesta con fuentes, en cinco pasos y todos dentro de tu equipo:
+De un archivo a una respuesta con fuentes, en cinco pasos locales por defecto. Si activas la generación en nube, la pregunta y los fragmentos recuperados se envían al proveedor elegido:
 
 1. **Analizar** — Extrae el texto de PDF, DOCX, XLSX o TXT. Los PDF usan un motor de respaldo si el primero falla.
 2. **Fragmentar** — Divide el texto en piezas de 1000 caracteres con 50 de solape, para no cortar ideas a la mitad.
@@ -79,18 +79,11 @@ Documento → Fragmentos → Vectores → Motor local → Respuesta
 
 ## Seguridad y privacidad
 
-La privacidad es el corazón del producto. Este es el mapa exacto de qué se guarda y qué se envía:
-
-| Dato | Dónde se guarda | ¿Sale de tu equipo? |
-| --- | --- | --- |
-| Tus archivos | Tu disco | Nunca |
-| Texto extraído | SQLite · `document_texts` | Nunca |
-| Embeddings | SQLite · `chunks.vector` | Nunca |
-| Historial de chat | SQLite · `messages` | Nunca |
-| Claves de API | SQLite · `settings` | Solo al llamar al proveedor elegido |
-| Pregunta + contexto recuperado | Memoria, durante la consulta | Solo si activas la nube |
-
-Tus archivos, el texto extraído y los vectores **nunca** salen de tu equipo, elijas el motor que elijas. La recuperación de información es siempre local; solo la redacción de la respuesta final puede delegarse a la nube, y únicamente si tú lo activas.
+- Con **Ollama local**, el procesamiento de documentos se realiza en tu equipo. Descarga previamente Ollama y los modelos para consultar sin conexión.
+- Si activas **Gemini, DeepSeek u OpenAI**, se envían tu pregunta y fragmentos del texto recuperado al proveedor para generar la respuesta. Requiere internet y puede tener costos propios.
+- Los archivos originales, los vectores y el historial se almacenan localmente. El texto de los fragmentos enviados sí forma parte del documento: no debe prometerse que todo el texto permanece siempre en el equipo.
+- Las claves de API se usan para autenticar llamadas al proveedor elegido. No son créditos incluidos en la compra.
+- El formulario de canje envía código y correo al servicio de validación. Un canje web no acredita por sí solo la activación ni los límites del escritorio; ver `CAMBIOS-COMERCIALES.md`.
 
 ---
 
@@ -114,35 +107,30 @@ El software de escritorio detrás de la web usa:
 
 ## Requisitos
 
-- Node.js **22+**
-- Rust **estable**
-- Ollama **instalado y en ejecución**
+- Para compradores: **Windows 10/11 de 64 bits** y espacio adicional para Ollama y modelos.
+- Ollama especifica **Windows 10 22H2 o posterior** y al menos **4 GB para instalar el runtime**, aparte de los modelos. No confundir esos 4 GB de disco con una garantía de RAM mínima o velocidad.
+- Internet para descargar el instalador y preparar la IA local. Después, seleccionar el proveedor local para consultas offline.
+- **No se necesita Node.js ni Rust para usar el instalador comercial**. Esas herramientas corresponden a compilar el código de la app, que está en otro repositorio.
 
 ---
 
 ## Instalación
 
-### 1. Instala los modelos
+1. Si compraste en AppSumo, abre el enlace de canje facilitado con tu compra, introduce código y correo y descarga el instalador de Windows. Conserva el comprobante.
+2. Ejecuta el instalador y abre DocuMind AI. Usa el asistente para preparar Ollama y espera a que terminen las descargas de los modelos.
+3. Crea un espacio, importa un documento y haz una pregunta. La nube es opcional; si la activas, se enviarán la pregunta y los fragmentos al proveedor.
 
-```bash
-# chat / generación (~1.3 GB)
-ollama pull llama3.2:1b
+El instalador enlazado actualmente se llama `DocuMind.AI_0.1.0_x64-setup.exe`, aunque la release usa el tag `v1.0.0`. No confundir el tag con la versión de la app. Una respuesta HEAD el 17/10/2026 confirmó 7.034.887 bytes (aprox. 7 MB); Ollama y modelos se descargan aparte. Esto no certifica instalación limpia, firma ni activación.
 
-# embeddings (274 MB, 768 dim)
-ollama pull nomic-embed-text
-```
+### Pruebas locales de esta web
 
-### 2. Instala las dependencias
+Con Node.js (verificado con 24.13.1): `node --test tests/commercial-flow.test.cjs`.
 
-```bash
-npm install
-```
+Las respuestas de canje son simuladas: no se llama al backend ni se gastan códigos. Las pruebas no sustituyen la comprobación del instalador o una prueba visual en navegador real.
 
-### 3. Ejecuta la app
+### Modelo local y licencias
 
-```bash
-npm run tauri dev
-```
+Built with Llama. El modelo predeterminado `llama3.2:1b` tiene su propia [Llama 3.2 Community License](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE) y política de uso; no hereda la licencia MIT de Ollama. `nomic-embed-text` es un modelo de embeddings, no sirve como modelo de chat. La aplicación incorpora textos de licencia y avisos de terceros en el asistente de preparación; la distribución actual debe actualizarse y verificarse antes de afirmar que contiene estos cambios.
 
 ---
 
