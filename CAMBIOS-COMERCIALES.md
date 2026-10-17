@@ -36,6 +36,14 @@ Antes de activar límites: definir y probar autenticación o licencia firmada, a
 - Prueba visual de landing/canje en navegador y revisión en los cinco idiomas.
 - Compilar y probar instalador actualizado en entorno limpio. La descarga actual sigue siendo el binario anterior.
 - Publicar solo con autorización. No crear una ficha nueva para eludir un rechazo ni reenviar la apelación existente.
+# Cierre publicado: DocuMind AI 0.1.1
+
+Release pública: https://github.com/fguzman-stack/Documind-DD/releases/tag/v0.1.1 . EXE, MSI y SHA256 publicados y descargados para cotejo de hash. Canje y backend devuelven el instalador 0.1.1. Sin firma Authenticode, declarado en cinco idiomas.
+
+Migración y tres funciones desplegadas en Supabase existente. Prueba alojada final: 7/7 con credencial sintética propia, incluida carrera entre dispositivos y URL exacta 0.1.1; filas QA eliminadas. Regresión web: 28/28. QA nativa release del desktop: todas las etapas correctas, incluidos importación, cuotas y reapertura. El código fuente sigue en repositorio privado; la clave privada nunca fue publicada.
+
+AppSumo MCP rechazó tanto edición como envío: `submitted: false`, `error: not_editable`, `status: rejected`, solicitud terminal 232334. No se creó una solicitud duplicada ni se afirma aprobación. Los registros siguientes son históricos de preparación, no una descripción del estado actual.
+
 # Actualización local 17/10/2026: licencia offline permanente
 
 Se añadieron migración `20261017210000_offline_licensing.sql`, funciones `activate-documind-license`/`refresh-documind-license` y módulo de firma Ed25519 compartido. El cliente Windows verifica en Rust; no se confía en un tier enviado por navegador. Política elegida por propietario: activación inicial online y uso offline permanente, revocación detectable solo con conexión y respuesta firmada.

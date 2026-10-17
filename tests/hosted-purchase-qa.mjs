@@ -23,7 +23,8 @@ async function verify(token) {
 try {
   const redeemed=await post('redeem-appsumo-code',{code,email});
   assert.equal(redeemed.data.ok,true,redeemed.data.error); assert.equal(redeemed.data.tier,1);
-  checks.push('Hosted redemption with synthetic code');
+  assert.equal(redeemed.data.download_url,'https://github.com/fguzman-stack/Documind-DD/releases/download/v0.1.1/DocuMind.AI_0.1.1_x64-setup.exe');
+  checks.push('Hosted redemption with synthetic code returns the verified 0.1.1 installer');
   const candidates=['b'.repeat(64),'c'.repeat(64)];
   const competing=await Promise.all(candidates.map(device_hash=>post('activate-documind-license',{code,email,device_hash})));
   const winner=competing.findIndex(r=>r.data.ok===true);

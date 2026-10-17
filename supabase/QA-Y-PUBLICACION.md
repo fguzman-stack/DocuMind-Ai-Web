@@ -1,5 +1,7 @@
 # Verificación alojada y publicación: pendiente de autorización
 
+**Nota de cierre:** documento de planificación histórico. Posteriormente se ejecutó el despliegue autorizado en el proyecto existente, QA alojada sintética 7/7, publicación de instaladores 0.1.1 y actualización del canje. No se creó el proyecto QA separado propuesto. Estado efectivo en `../CAMBIOS-COMERCIALES.md`; la instalación limpia y firma Authenticode no se certifican. Las instrucciones siguientes describen el procedimiento de referencia, no tareas que se hayan realizado por su mera presencia aquí.
+
 Estado 17/10/2026: implementación y pruebas locales realizadas; **ninguna migración, función o clave publicada en producción**. El instalador público existente no contiene estos cambios. No publicar web y dejar al comprador con un instalador incompatible.
 
 ## Preparación segura
