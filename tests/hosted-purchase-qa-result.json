@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-17T21:53:16.175Z",
+  "checks": [
+    "Hosted redemption with synthetic code",
+    "Concurrent first-device activation permits exactly one winner",
+    "Hosted issuance verifies against pinned public key",
+    "Same-device activation is idempotent",
+    "Hosted tier-one second device rejected",
+    "Hosted signed refresh verified",
+    "Tampered token rejected by hosted server"
+  ],
+  "scope": "Synthetic credential only; operator removes its isolated rows after test"
+}
