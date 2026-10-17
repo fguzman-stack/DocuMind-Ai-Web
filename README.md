@@ -120,7 +120,7 @@ El software de escritorio detrás de la web usa:
 2. Ejecuta el instalador y abre DocuMind AI. Usa el asistente para preparar Ollama y espera a que terminen las descargas de los modelos.
 3. Crea un espacio, importa un documento y haz una pregunta. La nube es opcional; si la activas, se enviarán la pregunta y los fragmentos al proveedor.
 
-El instalador enlazado actualmente se llama `DocuMind.AI_0.1.0_x64-setup.exe`, aunque la release usa el tag `v1.0.0`. No confundir el tag con la versión de la app. Una respuesta HEAD el 17/10/2026 confirmó 7.034.887 bytes (aprox. 7 MB); Ollama y modelos se descargan aparte. Esto no certifica instalación limpia, firma ni activación.
+Entrega actual: `DocuMind.AI_0.1.1_x64-setup.exe`, release `v0.1.1`, 7.094.626 bytes (aprox. 7 MB). MSI alternativo: 9.142.272 bytes. Los hashes están en `SHA256SUMS-0.1.1.txt` dentro de la release. Ollama/modelos requieren descargas aparte. Los instaladores no tienen firma Authenticode; no se afirma certificación de instalación limpia en todos los equipos.
 
 ### Pruebas locales de esta web
 

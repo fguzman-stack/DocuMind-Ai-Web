@@ -69,7 +69,7 @@ serve(async (req) => {
       tier: data.tier,
       already_redeemed: Boolean(data.already_redeemed),
       email: data.redeemed_email,
-      download_url: "https://github.com/fguzman-stack/Documind-DD/releases/download/v1.0.0/DocuMind.AI_0.1.0_x64-setup.exe",
+      download_url: "https://github.com/fguzman-stack/Documind-DD/releases/download/v0.1.1/DocuMind.AI_0.1.1_x64-setup.exe",
     });
   } catch (error) {
     console.error(error);

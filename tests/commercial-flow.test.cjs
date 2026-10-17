@@ -79,7 +79,7 @@ for (const locale of locales) {
     for (const key of Object.keys(redeem.es)) assert.equal(typeof redeem[locale][key], 'string', `redeem ${key}`);
     for (const key of Object.keys(site.es)) assert.equal(typeof site[locale][key], 'string', `site ${key}`);
     assert.notEqual(site[locale]['privacy.row2.leaves'], site[locale]['privacy.row3.leaves']);
-    assert.match(redeem[locale]['success.hint'], /0\.1\.0.*~7/);
+    assert.match(redeem[locale]['success.hint'], /0\.1\.1.*22H2.*~7.*Authenticode/);
     assert.match(site[locale]['start.subtitle'], /Windows 10\/11/);
     const p = page({ language: locale });
     assert.equal(p.nodes.langSelect.value, locale);
